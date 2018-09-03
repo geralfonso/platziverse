@@ -1,8 +1,8 @@
 const test = require('ava');
 const sinon = require('sinon');
 const proxyquire = require('proxyquire');
-const metricFixtures = require('./fixtures/metric');
-const agentFixtures = require('./fixtures/agent');
+
+const { metricFixtures, agentFixtures } = require('platziverse-utils');
 
 let config = {
   logging() {}
@@ -17,30 +17,34 @@ let db, sandbox;
 let uuidArgs = {
   attributes: ['type'],
   group: ['type'],
-  include: [{
-    attributes: [],
-    model: AgentStub,
-    where: {
-      uuid
+  include: [
+    {
+      attributes: [],
+      model: AgentStub,
+      where: {
+        uuid
+      }
     }
-  }],
+  ],
   raw: true
 };
 
 let typeArgs = {
-  attributes: ['id', 'type', 'value', 'createAt'],
+  attributes: ['id', 'type', 'value', 'createdAt'],
   where: {
     type
   },
   limit: 20,
-  order: [['createAt', 'DESC']],
-  include: [{
-    attributes: [],
-    model: AgentStub,
-    where: {
-      uuid
+  order: [['createdAt', 'DESC']],
+  include: [
+    {
+      attributes: [],
+      model: AgentStub,
+      where: {
+        uuid
+      }
     }
-  }],
+  ],
   raw: true
 };
 
@@ -53,7 +57,6 @@ let newMetric = {
 let agentUuidArgs = {
   where: { uuid }
 };
-
 
 test.beforeEach(async () => {
   sandbox = sinon.createSandbox();
@@ -71,11 +74,13 @@ test.beforeEach(async () => {
     .returns(Promise.resolve(agentFixtures.byUuid(uuid)));
 
   MetricStub.create = sandbox.stub();
-  MetricStub.create.withArgs(newMetric).returns(Promise.resolve({
-    toJSON() {
-      return newMetric;
-    }
-  }));
+  MetricStub.create.withArgs(newMetric).returns(
+    Promise.resolve({
+      toJSON() {
+        return newMetric;
+      }
+    })
+  );
 
   uuidArgs.include[0].model = AgentStub;
   typeArgs.include[0].model = AgentStub;
@@ -83,8 +88,12 @@ test.beforeEach(async () => {
   // Model findAll Stub
   MetricStub.findAll = sandbox.stub();
   MetricStub.findAll.withArgs().returns(Promise.resolve(metricFixtures.all));
-  MetricStub.findAll.withArgs(uuidArgs).returns(Promise.resolve(metricFixtures.byAgentUuid(uuid)));
-  MetricStub.findAll.withArgs(typeArgs).returns(Promise.resolve(metricFixtures.byTypeAgentUuid(type, uuid)));
+  MetricStub.findAll
+    .withArgs(uuidArgs)
+    .returns(Promise.resolve(metricFixtures.byAgentUuid(uuid)));
+  MetricStub.findAll
+    .withArgs(typeArgs)
+    .returns(Promise.resolve(metricFixtures.byTypeAgentUuid(type, uuid)));
 
   const setupDatabase = proxyquire('../', {
     './models/metric': () => MetricStub,
@@ -139,7 +148,11 @@ test.serial('Metric#findByTypeAgentUuid', async t => {
     MetricStub.findAll.calledWith(typeArgs),
     'findAll should be called without args'
   );
-  t.deepEqual(metric, metricFixtures.byTypeAgentUuid(type, uuid), 'Should be the same');
+  t.deepEqual(
+    metric,
+    metricFixtures.byTypeAgentUuid(type, uuid),
+    'Should be the same'
+  );
 });
 
 test.serial('Metric#Create', async t => {
@@ -147,11 +160,17 @@ test.serial('Metric#Create', async t => {
 
   t.true(AgentStub.findOne.called, 'Agent findOne should be called on model');
   t.true(AgentStub.findOne.calledOnce, 'Agent findOne should be called once');
-  t.true(AgentStub.findOne.calledWith(agentUuidArgs), 'findOne should be called with uuid args');
+  t.true(
+    AgentStub.findOne.calledWith(agentUuidArgs),
+    'findOne should be called with uuid args'
+  );
 
   t.true(MetricStub.create.called, 'create should be called on model');
   t.true(MetricStub.create.calledOnce, 'create should be called once');
-  t.true(MetricStub.create.calledWith(newMetric), 'create should be called once');
+  t.true(
+    MetricStub.create.calledWith(newMetric),
+    'create should be called once'
+  );
 
   t.deepEqual(metric, newMetric, 'agent should be the same');
 });

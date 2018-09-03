@@ -1,0 +1,32 @@
+{
+  "name": "platziverse-web",
+  "version": "1.0.0",
+  "description": "A Simple IoT Platform - Web Dashboard",
+  "main": "server.js",
+  "scripts": {
+    "start-dev": "NODE_ENV=development DEBUG=platziverse:* nodemon server.js",
+    "start": "NODE_ENV=production node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/geralfonso/platziverse.git"
+  },
+  "author": "German Alfonso <geralfonsocastillo@gmail.com> (https://twitter.com/geralfonso)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/geralfonso/platziverse/issues"
+  },
+  "homepage": "https://github.com/geralfonso/platziverse#readme",
+  "devDependencies": {
+    "eslint": "^5.4.0",
+    "eslint-plugin-standard": "^3.1.0",
+    "nodemon": "^1.18.3"
+  },
+  "dependencies": {
+    "chalk": "^2.4.1",
+    "debug": "^3.1.0",
+    "platziverse-utils": "file:../platziverse-utils",
+    "express": "^4.16.3"
+  }
+}

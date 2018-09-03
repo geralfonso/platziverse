@@ -27,4 +27,4 @@ public/app/report.html
 
 package-lock.json
 .vscode
-src/app/sass/bulma_docs2.sass
+*.owntest.js

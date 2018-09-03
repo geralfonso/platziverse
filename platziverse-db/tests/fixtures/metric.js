@@ -5,8 +5,8 @@ const metric = {
   agentId: 1,
   type: 'memory',
   value: '300',
-  createAt: new Date(),
-  updateAt: new Date()
+  createdAt: new Date(),
+  updatedAt: new Date()
 };
 
 const metrics = [
@@ -15,10 +15,16 @@ const metrics = [
   extend(metric, { id: 3, agentId: 2, type: 'memory', value: '200' }),
   extend(metric, { id: 4, agentId: 2, type: 'cpu', value: '1000' }),
   extend(metric, { id: 5, agentId: 2, type: 'gpu', value: '800' }),
-  extend(metric, { id: 6, agentId: 1, type: 'memory', value: '900', createAt: new Date('2018-09-14T17:51:53.242Z') }),
+  extend(metric, {
+    id: 6,
+    agentId: 1,
+    type: 'memory',
+    value: '900',
+    createdAt: new Date('2018-09-14T17:51:53.242Z')
+  }),
   extend(metric, { id: 7, agentId: 2, type: 'gpu', value: '400' }),
   extend(metric, { id: 8, agentId: 1, type: 'disk', value: '700' }),
-  extend(metric, { id: 9, agentId: 3, type: 'disk', value: '600' }),
+  extend(metric, { id: 9, agentId: 3, type: 'disk', value: '600' })
 ];
 
 function extend(obj, values) {
@@ -47,12 +53,17 @@ function byTypeAgentUuid(type, uuid) {
   let id = getAgentId(uuid);
 
   if (id) {
-    return metrics.filter(m => m.agentId === id).filter(m => m.type === type).map(m => ({
-      id: m.id,
-      type: m.type,
-      value: m.value,
-      createAt: m.createAt
-    })).sort((a, b) => b.createAt - a.createAt).slice(0, 20);
+    return metrics
+      .filter(m => m.agentId === id)
+      .filter(m => m.type === type)
+      .map(m => ({
+        id: m.id,
+        type: m.type,
+        value: m.value,
+        createdAt: m.createdAt
+      }))
+      .sort((a, b) => b.createdAt - a.createdAt)
+      .slice(0, 20);
   }
 
   return [];
