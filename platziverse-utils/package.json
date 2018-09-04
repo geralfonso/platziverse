@@ -18,7 +18,8 @@
   "homepage": "https://github.com/geralfonso/platziverse#readme",
   "dependencies": {
     "chalk": "^2.4.1",
-    "debug": "^3.1.0"
+    "debug": "^3.1.0",
+    "jsonwebtoken": "^8.3.0"
   },
   "devDependencies": {
     "eslint": "^5.4.0",

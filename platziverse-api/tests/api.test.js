@@ -4,8 +4,8 @@ const request = require('supertest');
 const sinon = require('sinon');
 const proxyquire = require('proxyquire');
 
-const { agentFixtures, metricFixtures, config } = require('platziverse-utils');
-const auth = require('../auth');
+const { agentFixtures, metricFixtures, config, auth } = require('platziverse-utils');
+
 const sign = util.promisify(auth.sign);
 
 let sandbox = null,
@@ -35,8 +35,8 @@ test.beforeEach(async () => {
   AgentStub.findConnected = sandbox.stub();
   AgentStub.findConnected.returns(Promise.resolve(agentFixtures.connected));
 
-  token = await sign({ admin: true, username: 'platzi' }, config.auth.secret);
-  notAuthToken = await sign({}, config.auth.secret);
+  token = await sign({ permissions: ['metrics:read'], admin: true, username: 'platzi' }, config.auth.secret);
+  notAuthToken = await sign({ permissions: ['metrics:read'] }, config.auth.secret);
 
   // Agent Model ByUuid
   AgentStub.findByUuid = sandbox.stub();
