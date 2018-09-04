@@ -53,7 +53,11 @@ api.get('/agent/:uuid', auth(config.auth), async (req, res, next) => {
   let agent;
 
   try {
-    agent = await Agent.findByUuid(uuid);
+    if (user.username === config.auth.secret) {
+      agent = await Agent.findByUuid(uuid);
+    } else {
+      return new Error('Not authorized');
+    }
   } catch (e) {
     return next();
   }
@@ -63,9 +67,11 @@ api.get('/agent/:uuid', auth(config.auth), async (req, res, next) => {
   res.send(agent);
 });
 
-api.get('/metrics/:uuid', async (req, res, next) => {
+api.get('/metrics/:uuid', auth(config.auth), async (req, res, next) => {
   const { uuid } = req.params;
+  const { user } = req;
 
+  if (!user || !user.username) return next(new Error('Not authorized'));
   debug(`request to /metrics/${uuid}`);
 
   metrics = [];
@@ -83,8 +89,11 @@ api.get('/metrics/:uuid', async (req, res, next) => {
   res.send(metrics);
 });
 
-api.get('/metrics/:uuid/:type', async (req, res, next) => {
+api.get('/metrics/:uuid/:type', auth(config.auth), async (req, res, next) => {
   const { uuid, type } = req.params;
+  const { user } = req;
+
+  if (!user || !user.username) return next(new Error('Not authorized'));
 
   metrics = [];
   try {
