@@ -14,6 +14,9 @@ const { parsePayload } = require('./utils');
 // Authentication
 const auth = require('./auth');
 
+// Pipe Sockets
+const { pipe } = require('./pipe');
+
 module.exports = {
   handleFatalError,
   handleError,
@@ -21,5 +24,6 @@ module.exports = {
   metricFixtures,
   config,
   parsePayload,
-  auth
+  auth,
+  pipe
 };

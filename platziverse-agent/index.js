@@ -13,7 +13,7 @@ const options = {
   username: 'platzi',
   interval: 5000,
   mqtt: {
-    host: 'mqtt://localhost:1883'
+    host: 'mqtt://localhost'
   }
 };
 
@@ -95,8 +95,7 @@ class PlatziverseAgent extends EventEmitter {
           case 'agent/connected':
           case 'agent/disconnected':
           case 'agent/message':
-            broadcast =
-              payload && payload.agent && payload.agent.uuid !== this._agentId;
+            broadcast = payload && payload.agent && payload.agent.uuid !== this._agentId;
             break;
         }
 

@@ -28,3 +28,4 @@ public/app/report.html
 package-lock.json
 .vscode
 *.owntest.js
+*.tmp-browserify-*

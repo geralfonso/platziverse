@@ -12,8 +12,8 @@ const api = asyncify(express.Router());
 let services, Agent, Metric;
 
 api.use('*', async (req, res, next) => {
-  debug('Connecting to database');
   if (!services) {
+    debug('Connecting to database');
     try {
       services = await db(config.db);
     } catch (e) {
@@ -29,7 +29,9 @@ api.get('/agents', auth(config.auth), async (req, res, next) => {
   debug('A request has come to /agents');
   const { user } = req;
 
-  if (!user || !user.username) return next(new Error('Not authorized'));
+  if (!user || !user.username) {
+    return next(new Error('Not authorized'));
+  }
 
   let agents = [];
 
@@ -54,11 +56,7 @@ api.get('/agent/:uuid', auth(config.auth), async (req, res, next) => {
   let agent;
 
   try {
-    if (user.username === config.auth.secret) {
-      agent = await Agent.findByUuid(uuid);
-    } else {
-      return new Error('Not authorized');
-    }
+    agent = await Agent.findByUuid(uuid);
   } catch (e) {
     return next();
   }

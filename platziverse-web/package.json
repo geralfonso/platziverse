@@ -4,8 +4,11 @@
   "description": "A Simple IoT Platform - Web Dashboard",
   "main": "server.js",
   "scripts": {
-    "start-dev": "NODE_ENV=development DEBUG=platziverse:* nodemon server.js",
     "start": "NODE_ENV=production node server.js",
+    "prestart": "npm run build",
+    "start-dev": "NODE_ENV=development DEBUG=platziverse:* nodemon server.js",
+    "prestart-dev": "npm run build",
+    "build": "browserify -t babelify -t vueify client/app.js -o public/bundle.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -18,16 +21,43 @@
     "url": "https://github.com/geralfonso/platziverse/issues"
   },
   "homepage": "https://github.com/geralfonso/platziverse#readme",
+  "browserify": {
+    "transform": [
+      [
+        "babelify",
+        {
+          "presets": [
+            "env"
+          ]
+        }
+      ]
+    ]
+  },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.7.0",
+    "babelify": "^8.0.0",
+    "browserify": "^16.2.2",
     "eslint": "^5.4.0",
     "eslint-plugin-standard": "^3.1.0",
-    "nodemon": "^1.18.3"
+    "nodemon": "^1.18.3",
+    "vueify": "^9.4.1"
   },
   "dependencies": {
     "chalk": "^2.4.1",
+    "chart.js": "^2.7.2",
     "debug": "^3.1.0",
     "express": "^4.16.3",
+    "express-asyncify": "^1.0.0",
+    "moment": "^2.22.2",
+    "platziverse-agent": "file:../platziverse-agent",
     "platziverse-utils": "file:../platziverse-utils",
-    "socket.io": "^2.1.1"
+    "random-material-color": "^1.0.3",
+    "request": "^2.88.0",
+    "request-promise-native": "^1.0.5",
+    "socket.io": "^2.1.1",
+    "vue": "^2.5.17",
+    "vue-chartjs": "^3.4.0"
   }
 }

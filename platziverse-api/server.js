@@ -17,7 +17,7 @@ app.use('/api', api);
 app.use((err, req, res, next) => {
   debug(`Error: ${err.message}`);
   if (err.message.match(/not found/)) {
-    res.status(404).send({ error: err.message });
+    return res.status(404).send({ error: err.message });
   }
   res.status(500).send({ error: err.message });
 });
@@ -27,9 +27,7 @@ if (!module.parent) {
   process.on('unhandledRejection', handleFatalError);
 
   server.listen(port, () => {
-    console.log(
-      `${chalk.green('[platziverse-api]')} server listening on port ${port}`
-    );
+    console.log(`${chalk.green('[platziverse-api]')} server listening on port ${port}`);
   });
 }
 
