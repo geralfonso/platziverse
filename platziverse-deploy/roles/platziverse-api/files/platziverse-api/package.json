@@ -1,0 +1,42 @@
+{
+  "name": "platziverse-api",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A Simple IoT Platform - API",
+  "main": "server.js",
+  "scripts": {
+    "test": "DEBUG=platziverse:* ava tests/ --verbose",
+    "start": "NODE_ENV=production node server.js",
+    "start-dev": "DEBUG=platziverse:* nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/geralfonso/platziverse.git"
+  },
+  "author": "German Alfonso <geralfonsocastillo@gmail.com> (https://twitter.com/geralfonso)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/geralfonso/platziverse/issues"
+  },
+  "homepage": "https://github.com/geralfonso/platziverse#readme",
+  "devDependencies": {
+    "ava": "^0.25.0",
+    "eslint": "^5.4.0",
+    "eslint-plugin-standard": "^3.1.0",
+    "nodemon": "^1.18.3",
+    "proxyquire": "^2.1.0",
+    "sinon": "^6.1.5",
+    "supertest": "^3.1.0"
+  },
+  "dependencies": {
+    "chalk": "^2.4.1",
+    "debug": "^3.1.0",
+    "express": "^4.16.3",
+    "express-asyncify": "^1.0.0",
+    "express-jwt": "^5.3.1",
+    "express-jwt-permissions": "^1.2.1",
+    "jsonwebtoken": "^8.3.0",
+    "platziverse-db": "file:../platziverse-db",
+    "platziverse-utils": "file:../platziverse-utils"
+  }
+}

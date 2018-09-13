@@ -22,7 +22,9 @@
     "eslint-plugin-standard": "^4.0.0"
   },
   "dependencies": {
-    "args": "^5.0.0",
-    "minimist": "^1.2.0"
+    "blessed": "^0.1.81",
+    "blessed-contrib": "^4.8.6",
+    "moment": "^2.22.2",
+    "platziverse-agent": "file:../platziverse-agent"
   }
 }

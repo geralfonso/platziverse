@@ -1,0 +1,28 @@
+{
+  "name": "platziverse-utils",
+  "version": "1.0.0",
+  "description": "A Simple IoT Platform - Utils",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/geralfonso/platziverse.git"
+  },
+  "author": "German Alfonso <geralfonsocastillo@gmail.com> (https://twitter.com/geralfonso)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/geralfonso/platziverse/issues"
+  },
+  "homepage": "https://github.com/geralfonso/platziverse#readme",
+  "dependencies": {
+    "chalk": "^2.4.1",
+    "debug": "^3.1.0",
+    "jsonwebtoken": "^8.3.0"
+  },
+  "devDependencies": {
+    "eslint": "^5.4.0",
+    "eslint-plugin-standard": "^3.1.0"
+  }
+}

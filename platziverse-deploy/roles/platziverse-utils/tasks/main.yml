@@ -1,0 +1,11 @@
+---
+- include: deps.yml
+- name: Copy platziverse-utils
+  copy:
+    src=platziverse-utils
+    dest=/usr/local/src
+    mode=u=rwx,g=rwx,o=rx
+- name: Run npm install
+  command: npm install
+    chdir=/usr/local/src/platziverse-utils
+    creates=/usr/local/src/platziverse-utils/node_modules
